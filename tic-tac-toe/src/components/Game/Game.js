@@ -40,13 +40,14 @@ class Game extends React.Component {
       this.setState({history: history});
       this.setState({nextPlayer: history[history.length-1][1]});
       this.setState({winner: null});
+      this.setState({color: [Array(38*38).fill('black')]});
     }
 
     render() {
       const historyChange = this.state.history.map((boardState, move) => {
         const desc = move ? 'Go to move: ' + move : 'Go to game start';
         return (
-          <li>
+          <li key={move}>
             <button onClick={() => {this.moveTo(move)}}>{desc}</button>
           </li>
         );

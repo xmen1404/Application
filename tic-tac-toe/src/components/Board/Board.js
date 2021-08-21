@@ -88,13 +88,16 @@ class Board extends React.Component {
     //   }
     // }
 
-    render() {
+    componentDidUpdate(prevProps) {
       if(!this.props.winner) {
-          const winner = this.checkWinner(this.props.lastMove);
-          if(winner) {
-              this.props.setWinner(winner, this.props.lastMove);
-          }
+        const winner = this.checkWinner(this.props.lastMove);
+        if(winner) {
+            this.props.setWinner(winner, this.props.lastMove);
+        }
       }
+    }
+
+    render() {
       let boardState = [];
       for(let i = 0 ; i < this.props.rowCnt; ++i) {
         let curRow = [];
