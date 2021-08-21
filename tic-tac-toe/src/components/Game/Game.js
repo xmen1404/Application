@@ -7,14 +7,25 @@ class Game extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        history: [[Array(9).fill(null), true, null]], 
+        rowCnt:10, 
+        colCnt:10,
+        winLimit: 5,
+        history: [[Array(10*10).fill(null), true, null]], 
+        color: [Array(10*10).fill('black')],
         winner: null,
         nextPlayer: true,
       };
     }
 
-    setWinner = (winner) => {
-      this.setState({winner: winner});
+    setWinner = (winTrace, position) => {
+      const boardState = this.state.history[this.state.history.length - 1][0];
+      this.setState({winner: boardState[position]});
+      console.log(position, boardState[position]);  
+      const color = this.state.color.slice();
+      winTrace.forEach(item => {
+        color[item] = 'blue';
+      });
+      this.setState({color: color});
     }
 
     addHistory = (boardState, lastMove) => {
@@ -42,7 +53,7 @@ class Game extends React.Component {
       });
       let status = 'Next player: ' + ((this.state.nextPlayer === true) ? 'X' : 'O');
       if(this.state.winner) {
-        status = this.state.winner + ' Won! Game ended.';
+        status = (this.state.winner === 'X') ? 'X took down the opponent!' : "You're fucked up, X";
       }
       const lastBoardState = this.state.history[this.state.history.length-1];
       return (
@@ -55,9 +66,10 @@ class Game extends React.Component {
               boardState={lastBoardState[0]} 
               nextPlayer={lastBoardState[1]}
               lastMove={lastBoardState[2]}
-              rowCnt={3}
-              colCnt={3}
-              winLimit={3}
+              rowCnt={this.state.rowCnt}
+              colCnt={this.state.colCnt}
+              winLimit={this.state.winLimit}
+              color={this.state.color}
             />
           </div>
           <div className="game-info">
