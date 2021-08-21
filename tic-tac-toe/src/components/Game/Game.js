@@ -7,11 +7,11 @@ class Game extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        rowCnt:10, 
-        colCnt:10,
+        rowCnt:38, 
+        colCnt:38,
         winLimit: 5,
-        history: [[Array(10*10).fill(null), true, null]], 
-        color: [Array(10*10).fill('black')],
+        history: [[Array(38*38).fill(null), true, null]], 
+        color: [Array(38*38).fill('black')],
         winner: null,
         nextPlayer: true,
       };
