@@ -1,2 +1,2 @@
 # Application
-Some applications I created.
+Some small applications I created.
